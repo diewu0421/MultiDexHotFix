@@ -1,0 +1,51 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion 26
+
+    defaultConfig {
+        applicationId "com.epro.zlw"
+        minSdkVersion 15
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+    }
+
+
+
+//    productFlavors {
+//        // Define separate dev and prod product flavors.
+////        dev {
+////            // dev utilizes minSDKVersion = 21 to allow the Android gradle plugin
+////            // to pre-dex each module and produce an APK that can be tested on
+////            // Android Lollipop without time consuming dex merging processes.
+////            minSdkVersion 14
+////        }
+//        prod {
+//            // The actual minSdkVersion for the application.
+//            minSdkVersion 14
+//        }
+//    }
+
+    buildTypes {
+        release {
+            multiDexKeepFile file('dex.keep')
+            def myFile = file('dex.keep')
+            println("isFileExists:"+myFile.exists())
+            println "dex keep"
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+
+dependencies {
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+}
+repositories {
+    mavenCentral()
+}
